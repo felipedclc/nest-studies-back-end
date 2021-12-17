@@ -1,10 +1,10 @@
-import { Document } from 'mongoose'
+import { Document } from 'mongoose';
 
-export interface Jogador extends Document {
-    readonly telefoneCelular: string;
-    readonly email: string;
-    nome: string;  
-    ranking: string;
-    posicaoRanking: number;
-    urlFotoJogador: string;
+export interface Jogador extends Document { // interface tem comportamento para o bd
+  readonly telefoneCelular: string;
+  readonly email: string;
+  nome: string;
+  ranking: string;
+  posicaoRanking: number;
+  urlFotoJogador: string;
 }

@@ -1,10 +1,4 @@
-import { IsNotEmpty } from 'class-validator'
+import { PartialType } from '@nestjs/mapped-types';
+import { CriarJogadorDto } from './criar-jogador.dto';
 
-export class AtualizarJogadorDto {
-
-    @IsNotEmpty()
-    readonly telefoneCelular: string;
-    
-    @IsNotEmpty()
-    readonly nome: string;
-}
+export class AtualizarJogadorDto extends PartialType(CriarJogadorDto) {}

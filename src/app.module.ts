@@ -4,9 +4,14 @@ import { JogadoresModule } from './jogadores/jogadores.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://admin:yGCBrcKjIG0zgCGi@cluster0-0d9kc.mongodb.net/smartranking?retryWrites=true&w=majority',
-    { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }),
-    JogadoresModule],
+    MongooseModule.forRoot('mongodb://localhost:27017/jogadores', {
+      useNewUrlParser: true, // recomendado p garantir a compatibilidade
+      useCreateIndex: true, // evitar msg de deprecated
+      useUnifiedTopology: true, // boa prática
+      useFindAndModify: false, // desabilita o método
+    }),
+    JogadoresModule,
+  ],
   controllers: [],
   providers: [],
 })
