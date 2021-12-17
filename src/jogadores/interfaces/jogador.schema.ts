@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 export const JogadorSchema = new mongoose.Schema( // cria um modelo do mongodb
   {
-    email: { type: String, unique: true }, // tipando e colocando validação unique
+    email: { type: String, unique: true },
     telefoneCelular: { type: String, unique: true },
     nome: String,
     ranking: String,
