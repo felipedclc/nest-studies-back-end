@@ -5,6 +5,8 @@ export const JogadorSchema = new mongoose.Schema( // cria um modelo do mongodb
     email: { type: String, unique: true },
     telefoneCelular: { type: String, unique: true },
     nome: String,
+    password: String,
+    role: String,
     ranking: String,
     posicaoRanking: Number,
     urlFotoJogador: String,

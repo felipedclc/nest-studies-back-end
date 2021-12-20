@@ -9,19 +9,18 @@ export class JogadoresService {
 
   constructor(@InjectModel('Jogador') private readonly jogadorModel: Model<Jogador>) {}
 
-  async _findEmailOrPhoneAndThrowError(email:string, telefoneCelular: string): Promise<void> {
-    const existEmail = await this.jogadorModel.findOne({ email }).exec();
-    const existPhone = await this.jogadorModel.findOne({ telefoneCelular }).exec();
-
-    if (existEmail || existPhone) throw new BadRequestException(`e-mail ou telefone já cadastrado`);
-  }
-
   async create(criaJogadorDto: CriarJogadorDto): Promise<Jogador> {
     const { email, telefoneCelular } = criaJogadorDto;
 
     await this._findEmailOrPhoneAndThrowError(email, telefoneCelular);
     const jogadorCriado = new this.jogadorModel(criaJogadorDto);
     return jogadorCriado.save();
+  }
+
+  async findByEmail(email: string): Promise<Jogador> {
+    const jogador = await this.jogadorModel.findOne({ email });
+    // if (!jogador) throw new NotFoundException(`Jogador não encontrado`);
+    return jogador;
   }
 
   async findById(id: string): Promise<Jogador> {
@@ -44,4 +43,12 @@ export class JogadoresService {
     await this.findById(id);
     return this.jogadorModel.deleteOne({ _id: id }).exec();
   }
+
+  private async _findEmailOrPhoneAndThrowError(email:string, telefoneCelular: string): Promise<void> {
+    const existEmail = await this.jogadorModel.findOne({ email }).exec();
+    const existPhone = await this.jogadorModel.findOne({ telefoneCelular }).exec();
+
+    if (existEmail || existPhone) throw new BadRequestException(`e-mail ou telefone já cadastrado`);
+  }
+
 }
