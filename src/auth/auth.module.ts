@@ -1,5 +1,5 @@
-require('dotenv').config();
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { JogadoresModule } from 'src/jogadores/jogadores.module';
 import { JwtStrategyService } from './jwt-strategy/jwt-strategy.service';
@@ -9,9 +9,11 @@ import { LoginService } from './login/login.service';
 @Module({
   imports: [
     JogadoresModule,
-    JwtModule.register({
-      secret: 'mytopsecretjwt',
-      signOptions: { expiresIn: '3600s' },
+    JwtModule.registerAsync({
+      useFactory: async (configService: ConfigService) => ({
+        secretOrPrivateKey: configService.get('JWT_SECRET'),
+      }),
+      inject: [ConfigService],
     }),
   ],
   controllers: [LoginController],

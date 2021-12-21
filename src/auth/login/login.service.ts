@@ -20,7 +20,7 @@ export class LoginService {
     return null;
   }
 
-  async login(player: Jogador) {
+  async generateToken(player: Jogador): Promise<any> {
     // console.log('player', player);
     const payload = {
       id: player._id,

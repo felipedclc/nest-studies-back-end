@@ -12,6 +12,6 @@ export class LoginController {
     const player = await this.loginService.validateUser(body.email, body.password);
     console.log('player from service', player);
     if (!player) throw new UnauthorizedException('Usuário ou senha inválidos');
-    return this.loginService.login(player);
+    return this.loginService.generateToken(player);
   }
 }

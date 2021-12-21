@@ -1,4 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -11,7 +12,9 @@ async function bootstrap() {
       transform: true, // tipa a requisição igual está no modelo de dto
     }),
   );
-  await app.listen(3000);
+  const configService = app.get(ConfigService);
+  const PORT = configService.get('PORT')
+  await app.listen(PORT);
   const urlApp = await app.getUrl();
   console.log(`Application is running on ${urlApp}`);
 }
